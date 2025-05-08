@@ -9,8 +9,6 @@
 create database exTransationProcedure1
 use exTransationProcedure1
 
-drop database exTransationProcedure1
-
 create table Produto (
 	id_produto int primary key identity,
 	nome varchar(50),
