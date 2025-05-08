@@ -1,3 +1,5 @@
+--EXERCICIO 1-----------------------------------------------------------------------------------------------------------------------
+
 --Desenvolva uma stored procedure que realize uma transação para atualizar o estoque de
 --produtos em uma loja online. A transação deve primeiro verificar se há estoque disponível para o produto
 --em questão. Se houver estoque disponível, a stored procedure deve diminuir a quantidade disponível
@@ -44,3 +46,16 @@ exec atualizar_estoque
 @id_produto = 1, @perdaEstoque = 90;
 
 select * from Produto
+
+--EXERCICIO 2-----------------------------------------------------------------------------------------------------------------------
+--Desenvolva uma stored procedure para gerenciar o processo de reserva de salas de aula em uma
+--universidade. A transação deve garantir que a reserva seja concluída apenas se a sala estiver disponível
+--no horário solicitado e se o aluno estiver matriculado na disciplina correspondente à sala. A stored
+--procedure deve verificar se a sala está disponível e se o aluno está matriculado na disciplina antes de
+--realizar a reserva. Caso a sala não esteja disponível ou o aluno não esteja matriculado na disciplina
+--correspondente, a transação deve ser revertida.
+
+
+create database exTransationProcedure2
+use exTransationProcedure2
+
