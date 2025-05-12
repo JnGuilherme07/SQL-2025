@@ -105,7 +105,8 @@ CREATE PROCEDURE ReservarSalaDeAula
 AS
 BEGIN
 
-DECLARE @SalaDisponivel INT, @AlunoMatriculado INT;
+DECLARE @SalaDisponivel INT, 
+@AlunoMatriculado INT;
 
 BEGIN TRANSACTION;
 	SELECT @SalaDisponivel = Disponivel
