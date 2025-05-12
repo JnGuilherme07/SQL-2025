@@ -9,6 +9,7 @@
 create database exTransationProcedure1
 use exTransationProcedure1
 
+
 create table Produto (
 	id_produto int primary key identity,
 	nome varchar(50),
@@ -20,7 +21,7 @@ values ('macarrão', 50)
 
 
 
-create procedure atualizar_estoque
+create procedure tirar_estoque
 	@id_produto int,
 	@perdaEstoque int
 as
@@ -29,7 +30,8 @@ begin
 	if ((select estoque from Produto WHERE id_produto = @id_produto) >= @perdaEstoque)
 	begin
 		update Produto
-		set estoque = estoque - @perdaEstoque where id_produto = @id_produto;
+		set estoque = estoque - @perdaEstoque 
+		where id_produto = @id_produto;
 		commit;	
 		print 'estoque alterado';
 	end
@@ -40,10 +42,29 @@ begin
 	end
 end;
 
-exec atualizar_estoque
-@id_produto = 1, @perdaEstoque = 90;
+
+
+create procedure colcar_estoque
+	@id_produto int,
+	@ganhoEstoque int
+as
+begin
+	update Produto
+	set estoque = estoque + @ganhoEstoque 
+	where id_produto = @id_produto;
+end;
+
+
+exec tirar_estoque
+@id_produto = 1, @perdaEstoque = 30;
+
+exec colcar_estoque
+@id_produto = 1, @ganhoEstoque = 70;
+
 
 select * from Produto
+
+
 
 --EXERCICIO 2-----------------------------------------------------------------------------------------------------------------------
 --Desenvolva uma stored procedure para gerenciar o processo de reserva de salas de aula em uma
@@ -56,6 +77,7 @@ select * from Produto
 
 create database exTransationProcedure2
 use exTransationProcedure2
+
 
 CREATE TABLE Aluno (
 AlunoID INT PRIMARY KEY,
@@ -83,10 +105,11 @@ DisciplinaID INT PRIMARY KEY,
 NomeDisciplina VARCHAR(50)
 );
 
-CREATE TABLE Matriculas (
+CREATE TABLE Matriculas(
 AlunoID INT,
+foreign key (AlunoID) references Aluno(AlunoID),
 DisciplinaID INT,
-PRIMARY KEY (AlunoID, DisciplinaID)
+foreign key (DisciplinaID) references Disciplinas(DisciplinaID),
 );
 
 INSERT INTO Disciplinas (DisciplinaID, NomeDisciplina) VALUES
@@ -138,7 +161,9 @@ END;
 
 EXEC ReservarSalaDeAula @SalaID = 2, @AlunoID = 1, @DisciplinaID = 1;
 
-update SalasDeAula set Disponivel=1 where SalaID=1
+update SalasDeAula 
+set Disponivel=1 
+where SalaID=2
 
 SELECT * FROM Aluno
 SELECT * FROM SalasDeAula
